@@ -28,7 +28,6 @@ date'''
     stage('deploy/print message') {
       steps {
         echo 'deploy'
-        sleep 10
       }
     }
 
