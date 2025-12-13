@@ -21,17 +21,6 @@ pipeline {
             }
         }
 
-        stage('Deploy on Test') {
-            steps {
-                sh '''
-                curl --fail -u tomacat:mypassword \
-                -T target/demo.war \
-                "http://13.203.224.8:8080/manager/text/deploy?path=/app&update=true"
-                '''
-                echo '======== deployed on TEST ========'
-            }
-        }
-
         stage('Deploy on Prod') {
             steps {
                 sh '''
