@@ -10,49 +10,49 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
-                echo '========executing test========'
+                echo '======== executing test ========'
             }
         }
 
         stage('Build') {
             steps {
                 sh 'mvn clean package'
-                echo '========executing build========'
+                echo '======== executing build ========'
             }
         }
 
         stage('Deploy on Test') {
             steps {
                 sh '''
-                curl -v -u tomacat:mypassword \
+                curl --fail -u tomacat:mypassword \
                 -T target/demo.war \
                 "http://13.203.224.8:8080/manager/text/deploy?path=/app&update=true"
                 '''
-                echo '========deployed on test========'
+                echo '======== deployed on TEST ========'
             }
         }
 
         stage('Deploy on Prod') {
             steps {
                 sh '''
-                curl -v -u tomacat:mypassword \
+                curl --fail -u tomacat:mypassword \
                 -T target/demo.war \
                 "http://43.204.102.217:8080/manager/text/deploy?path=/app&update=true"
                 '''
-                echo '========deployed on prod========'
+                echo '======== deployed on PROD ========'
             }
         }
     }
 
     post {
         always {
-            echo '========always========'
+            echo '======== pipeline finished ========'
         }
         success {
-            echo '========pipeline executed successfully========'
+            echo '✅ PIPELINE EXECUTED SUCCESSFULLY'
         }
         failure {
-            echo '========pipeline execution failed========'
+            echo '❌ PIPELINE FAILED'
         }
     }
 }
