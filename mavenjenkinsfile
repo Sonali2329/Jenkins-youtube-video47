@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn package'
+                sh 'mvn clean package'
                 echo '========executing build========'
             }
         }
@@ -24,7 +24,7 @@ pipeline {
         stage('Deploy on Test') {
             steps {
                 sh '''
-                curl -u tomacat:mypassword \
+                curl -v -u tomacat:mypassword \
                 -T target/demo.war \
                 "http://13.203.224.8:8080/manager/text/deploy?path=/app&update=true"
                 '''
@@ -35,7 +35,7 @@ pipeline {
         stage('Deploy on Prod') {
             steps {
                 sh '''
-                curl -u tomacat:mypassword \
+                curl -v -u tomacat:mypassword \
                 -T target/demo.war \
                 "http://43.204.102.217:8080/manager/text/deploy?path=/app&update=true"
                 '''
