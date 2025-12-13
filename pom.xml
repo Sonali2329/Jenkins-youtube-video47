@@ -9,6 +9,21 @@
     <artifactId>demo</artifactId>
     <version>1.0</version>
 
-    <packaging>jar</packaging>
+    <!-- IMPORTANT: WAR packaging for Tomcat -->
+    <packaging>war</packaging>
+
+    <dependencies>
+        <!-- Servlet API (provided by Tomcat) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>demo</finalName>
+    </build>
 
 </project>
